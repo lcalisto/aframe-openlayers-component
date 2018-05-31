@@ -25,6 +25,7 @@ AFRAME.registerComponent('ol', {
 	update: function (oldData) {
 		var data = this.data;  // Component property values.
 		var el = this.el;  // Reference to the component's entity.
+		var comp=this;
 		// Nothing changed
 		if (AFRAME.utils.deepEqual(oldData, data)) {
 			return;
@@ -111,7 +112,7 @@ AFRAME.registerComponent('ol', {
 
 			var objMapX=objX*mapSizeX;
 			var objMapY=(1-objY)*mapSizeY; // in Y needs to be reversed because map origin is top left
-			this.simulateEvent(data.OlEvent,objMapX,objMapY,false,olMap);
+			comp.simulateEvent(data.OlEvent,objMapX,objMapY,false,olMap);
 		});
 		
 		// Postcompose event. This were we convert canvas to image and the assign this image to the aframe object
