@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width">
+    <title>OL VR</title>
+    
+    <!-- Openlayers -->
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="http://localhost/v4.6.5/build/ol-debug.js"></script>
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+     <!-- A-Frame environment component
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    -->
+    <!-- A-Frame openlayers component-->
+	<script src="build.js"></script>
+
+    <script>
+		//// Create one openlayers map
+		var source1 = new ol.source.OSM();
+		var layer1 = new ol.layer.Tile({
+		  source: source1
+		});
+		var source2 = new ol.source.Vector({
+		    url: 'https://openlayers.org/en/v4.6.5/examples/data/geojson/countries.geojson',
+		    format: new ol.format.GeoJSON()
+		});
+		var layer2 = new ol.layer.Vector({
+		    source: source2
+		});
+		var map = new ol.Map({
+		    layers: [
+		        layer1,
+		        layer2
+		    ],
+		    target: 'map',
+		    controls: ol.control.defaults({
+		        attributionOptions: {
+		            collapsible: false
+		        }
+		    }),
+		    view: new ol.View({
+		        center: [0, 0],
+		        zoom: 0.7
+		    })
+		});
+		//// Create one interaction
+		var select = new ol.interaction.Select({
+		    condition: ol.events.condition.click //Click interaction
+		  });
+		map.addInteraction(select);
+		select.on('select', function(e) {
+			//console.log(e.target.getFeatures().getLength())
+			console.log(e.selected)
+			//console.log(e.deselected)
+		  });
+	  </script>
+</head>
+
+<body>
+<a-scene>
+      <a-assets>
+      		<div id="map"></div>
+      </a-assets>
+ <!--
+ <a-entity id="environment" environment="preset: egypt; dressing:none; skyType:atmosphere;lighting:distant; lightPosition: 0 2 0.7;"></a-entity>
+-->
+<a-plane 
+	position="2 2 -2" 
+	height="2" 
+	width="4" 
+	color="#c4c4c4"
+	OL="  map: map; 
+		  aframeEvent: click;
+		  OlEvent: click;
+          pixToVRRatio:150;"
+ ></a-plane>
+
+<a-sphere 
+	position="-2 2 -2" 
+	height="2" 
+	width="4" 
+	color="#c4c4c4" 
+	OL="  map: map; 
+	      pixToVRRatio:150;" 
+></a-sphere>
+
+<a-camera id="camera" position="0 1.6 0"  look-controls wasd-controls-enabled="true" >
+  <a-text id="infoText" color="grey" value="" position="0 -0.2 -1" scale="0.4 0.4 0.4"></a-text>
+  <a-cursor fuse interval="1000"></a-cursor>
+</a-camera>
+
+</a-scene>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "aframe-openlayers-component",
+  "version": "1.0.0",
+  "description": "Use OpenLayers maps inside A-Frame",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify examples/main.js -o examples/build.js",
+    "dev": "budo examples/main.js:build.js --dir examples --port 8000 --live",
+    "dist": "webpack index.js dist/aframe-openlayers-component.js && webpack -p index.js dist/aframe-openlayers-component.min.js",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcalisto/aframe-openlayers-component.git"
+  },
+  "keywords": [
+    "aframe",
+    "aframe-component",
+    "aframe-vr",
+    "vr",
+    "mozvr",
+    "webvr",
+    "openlayers",
+    "gis"
+  ],
+  "author": "Luis Calisto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lcalisto/aframe-openlayers-component/issues"
+  },
+  "homepage": "https://github.com/lcalisto/aframe-openlayers-component#readme",
+  "devDependencies": {
+    "browserify": "^16.2.2",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4"
+  }
+}
