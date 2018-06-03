@@ -1,8 +1,8 @@
 # aframe-openlayers-component
 
-An A-Frame component that alows the use of OpenLayers maps inside A-Frame.
+An A-Frame component that allows the use of OpenLayers maps inside A-Frame.
 
-This component alows the use of any OpenLayers map into any A-Frame object. It uses OpenLayers postcompose map event to export the map into an image (using canvas) and then the image is added into the A-Frame material. Also, it tries to pass OpenLayers interactions into A-frame to allow selection, pan, move etc. inside the VR enviroment.
+This component allows the use of any OpenLayers map into any A-Frame object. It uses OpenLayers `postcompose` map event to export the map into an image (using canvas) and then the image is added into the A-Frame material. Also, it tries to pass OpenLayers interactions into A-frame to allow selection, pan, move etc. inside the VR environment.
 
 
 **[Simple example:](https://lcalisto.github.io/aframe-openlayers-component/examples/simple.html)**
@@ -21,8 +21,8 @@ This component alows the use of any OpenLayers map into any A-Frame object. It u
 | **pixToVRRatio** | The multiplication factor between meters in A-Frame and the pixels of the map. ie; when set to 100, will display 100 pixels per 1 meter in VR space. Please check [Info about map](#info-about-map) | 100 | true |
 | **OlEvent** | OpenLayers event used in the interaction. This event will be passed into aframe. ie; when select is active probably you pass the click event. [More info about OpenLayers interaction events.](https://openlayers.org/en/latest/apidoc/ol.interaction.html) | click | false |
 | **aframeEvent** | A-Frame event that will be the destiny for the OLEvent. ie; When select interaction is active probably you pass also the click event. [More info about A-Frame events.](https://aframe.io/docs/0.8.0/introduction/interactions-and-controllers.html#sidebar)  | click | false |
-| **width** | Normaly map width is computed based on component width. But in some cases you might not give width in the componen, ie; when using a radius instead of width and height. In this cases, if width is not provided in the component, you need to provide a width for the map in VR units (meters). Please check [Info about map](#info-about-map) |  | false |
-| **height** | Normaly map height is computed based on component height. But in some cases you might not give height in the component, ie; when using a radius instead of width and height. In this cases, if height is not provided in the component, you need to provide a height for the map in VR units (meters). Please check [Info about map](#info-about-map)  |  | false |
+| **width** | Normally map width is computed based on component width. But in some cases you might not give width in the component, ie; when using a radius instead of width and height. In this cases, if width is not provided in the component, you need to provide a width for the map in VR units (meters). Please check [Info about map](#info-about-map) |  | false |
+| **height** | Normally map height is computed based on component height. But in some cases you might not give height in the component, ie; when using a radius instead of width and height. In this cases, if height is not provided in the component, you need to provide a height for the map in VR units (meters). Please check [Info about map](#info-about-map)  |  | false |
 
 ### Info about map
 
@@ -30,7 +30,7 @@ Map size is computed using the folowing formula: MapWidth = (pixToVRRatio * comp
 
 The higher `pixToVRRatio`, the more map area will be displayed per VR unit. The canvas has to be translated into a plane in VR space. This is combined with the width and height in VR space (from geometry.width and geometry.height on the entity or in case they don't exist then from the provided width and height in the OL object) to set up the map plane for rendering in 3D.
 
-The map is rendered as a texture on a 3D plane. For best performance, texture sizes should be kept to powers of 2, because of that, the component automaticaly resizes geometry.width and/or geometry.height to the closest power of 2 using the provided pixToVRRatio. If you don't want the component to automaticaly resize your objects you should make sure `width * pixToVRRatio` and `height * pixToVRRatio` are powers of 2.
+The map is rendered as a texture on a 3D plane. For best performance, texture sizes should be kept to powers of 2, because of that, the component automatically resizes geometry.width and/or geometry.height to the closest power of 2 using the provided pixToVRRatio. If you don't want the component to automatically resize your objects you should make sure `width * pixToVRRatio` and `height * pixToVRRatio` are powers of 2.
 
 ### Installation
 
