@@ -6,18 +6,24 @@ AFRAME.registerComponent('ol', {
 	schema: {
 		map: {
 			type: 'string',
-		default: 'map'
+			default: 'map'
+		},
+		height: {
+			type: 'number'
+		},
+		width: {
+			type: 'number'
 		},
 		pixToVRRatio: {
-		default: 100
+			default: 100
 		},
 		aframeEvent: {
 			type: 'string',
-		default: 'click'
+			default: 'click'
 		},
 		OlEvent: {
 			type: 'string',
-		default: 'click'
+			default: 'click'
 		}
 	},
 	init: function () {	
@@ -53,11 +59,11 @@ AFRAME.registerComponent('ol', {
 			return;
 		}
 		//Check if element has height and width. Otherwise is not possible to plot the map on it.
-		if(el.getAttribute('height')==null){
+		if(el.getAttribute('height')==null && (data.height==null || data.height==0)){
 			console.warn('OpenLayers component: Element Height is not specified. Aborting!');
 			return;
 		}
-		if(el.getAttribute('width')==null){
+		if(el.getAttribute('width')==null && (data.width==null || data.width==0)){
 			console.warn('OpenLayers component: Element Width is not specified. Aborting!');
 			return;
 		}
@@ -66,8 +72,13 @@ AFRAME.registerComponent('ol', {
 		// from https://github.com/jesstelford/aframe-map -----> https://github.com/jesstelford/aframe-map/blob/master/src/component.js
 		
 		var pixToVRRatio=data.pixToVRRatio;
-		var compWidth=el.getAttribute('width');
-		var compHeight=el.getAttribute('height');
+		
+		//var compHeight=el.getAttribute('height');
+		var compHeight = el.getAttribute('height')==null ? data.height : el.getAttribute('height');
+		
+		//var compWidth=el.getAttribute('width');
+		var compWidth = el.getAttribute('width')==null ? data.width : el.getAttribute('width');
+		
 		var mapWidth = compWidth*pixToVRRatio;
 		var mapHeight = compHeight*pixToVRRatio;
 
@@ -84,7 +95,11 @@ AFRAME.registerComponent('ol', {
 			var newMapWidth=this.nearestPow2(mapWidth);
 			var newWidth=this.calculateNewSize(newMapWidth,pixToVRRatio);
 			console.warn('Map width ',mapWidth,' (Ratio * component width - ',pixToVRRatio,'*',compWidth,') is not a power of 2. Setting new map width to ',newMapWidth,' and adjusting component width to ',newWidth);
-			el.setAttribute('width',newWidth);
+			if (el.getAttribute('width')==null ){
+				data.width=newWidth;
+			}else{
+				el.setAttribute('width',newWidth);
+			}
 			mapWidth=newMapWidth;
 		}
 		if (!(Math.log(mapHeight)/Math.log(2)) % 1 === 0) {
@@ -92,7 +107,11 @@ AFRAME.registerComponent('ol', {
 			var newMapHeight=this.nearestPow2(mapHeight)
 			var newHeight=this.calculateNewSize(newMapHeight,pixToVRRatio);
 			console.warn('Map height ',mapHeight,' (Ratio * component height - ',pixToVRRatio,'*',compHeight,') is not a power of 2. Setting new map height to ',newMapHeight,' and adjusting component height to ',newHeight);
-			el.setAttribute('height',newHeight);
+			if (el.getAttribute('height')==null ){
+				data.height=newHeight;
+			}else{
+				el.setAttribute('height',newHeight);
+			}
 			mapHeight=newMapHeight;
 
 		}
@@ -120,7 +139,8 @@ AFRAME.registerComponent('ol', {
 		olMap.on('postcompose', function(event) {
 			var canvas = event.context.canvas;
 			var img  = canvas.toDataURL("image/png")
-			el.setAttribute("src", img);
+			//el.setAttribute("src", img);
+			el.setAttribute("material","src", img);
 		});
 		olMap.renderSync();
 	},

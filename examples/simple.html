@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="http://localhost/v4.6.5/build/ol-debug.js"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol-debug.js"></script>
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
      <!-- A-Frame environment component
@@ -46,16 +46,6 @@
 		        zoom: 0.7
 		    })
 		});
-		//// Create one interaction
-		var select = new ol.interaction.Select({
-		    condition: ol.events.condition.click //Click interaction
-		  });
-		map.addInteraction(select);
-		select.on('select', function(e) {
-			//console.log(e.target.getFeatures().getLength())
-			console.log(e.selected)
-			//console.log(e.deselected)
-		  });
 	  </script>
 </head>
 
@@ -64,15 +54,12 @@
       <a-assets>
       		<div id="map"></div>
       </a-assets>
- <!--
- <a-entity id="environment" environment="preset: egypt; dressing:none; skyType:atmosphere;lighting:distant; lightPosition: 0 2 0.7;"></a-entity>
--->
 <a-plane 
 	position="2 2 -2" 
 	height="2" 
 	width="4" 
 	color="#c4c4c4"
-	OL="  map: map; 
+	ol="  map: map;
 		  aframeEvent: click;
 		  OlEvent: click;
           pixToVRRatio:150;"
@@ -80,10 +67,12 @@
 
 <a-sphere 
 	position="-2 2 -2" 
-	height="2" 
-	width="4" 
+	height="2"
+	width="4"
 	color="#c4c4c4" 
-	OL="  map: map; 
+	ol="  map: map; 
+		  aframeEvent: click;
+		  OlEvent: click;
 	      pixToVRRatio:150;" 
 ></a-sphere>
 

@@ -11,6 +11,7 @@
     <script src="https://openlayers.org/en/v4.6.5/build/ol-debug.js"></script>
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    
     <!-- A-Frame openlayers component-->
 	<script src="build.js"></script>
 
@@ -39,27 +40,41 @@
 		        }
 		    }),
 		    view: new ol.View({
-		        center: [0, 0],
+		        center: [0,0],
 		        zoom: 0.7
 		    })
 		});
-		//// Create one interaction
+
+		// Because we want a full globe inverted, we need to zoom into all the world extent
+		map.once('postrender', function(event) {
+			map.getView().fit([-20026376.39,-20048966.10,20026376.39,20048966.10],{
+					size:map.getSize(),
+					constrainResolution:false
+					});
+		});
+		
+		//// Create one interaction: After selection display country name.
 		var select = new ol.interaction.Select({
 		    condition: ol.events.condition.click //Click interaction
 		  });
 		map.addInteraction(select);
 		select.on('select', function(e) {
-			// Zoom map 2 to selected country. Otherwise reset map panel.
+			//console.log(e.selected);
 			if(e.selected.length>0){
-				//console.log(e.selected[0].getGeometry().getExtent());
+				document.getElementById('infoText').setAttribute('value',e.selected[0].getProperties().name);
+				// Zoom the second map to country extent
 				map2.getView().fit(e.selected[0].getGeometry().getExtent(),{
-						size:map2.getSize(),
-						constrainResolution:false
-					});
+					size:map2.getSize(),
+					constrainResolution:false
+				});
+				// make the plane appear.
+				document.getElementById('infoPlane').setAttribute('opacity','0.8');
+			}else{
+				document.getElementById('infoText').setAttribute('value','Click on a country.');
+				// make the plane disapear.
+				document.getElementById('infoPlane').setAttribute('opacity','0');
 			}
-			else{
-				
-			}
+			
 		  });
 		
 		/////////////////////// Second map //////////////////////////////////
@@ -81,6 +96,7 @@
 		        zoom: 0.7
 		    })
 		});
+
 	  </script>
 </head>
 
@@ -90,37 +106,40 @@
       		<div id="map"></div>
       		<div id="map2"></div>
       </a-assets>
-<a-plane 
-	position="0 2.2 -2" 
-	height="1.5" 
-	width="3" 
-	color="#c4c4c4"
-	ol="  map: map; 
-		  aframeEvent: click;
-		  OlEvent: click;
-          pixToVRRatio:150;"
- ></a-plane>
+      
+	<a-sphere 
+		position="0 1.6 0" 
+		 material="transparent: true; side: back;"
+		 scale="-1 1 1"
+		 radius="80"
+		color="#c4c4c4" 
+		ol="  map: map; 
+			  height:4; 
+			  width:4; 
+			  aframeEvent: click;
+			  OlEvent: click;
+		      pixToVRRatio:400;" 
+	></a-sphere>
 
-<a-plane 
-	position="0 1 -1.3" 
-	rotation='-20 0 0'
-	height="1" 
-	width="1" 
-	color="#c4c4c4" 
-	ol="  map: map2; 
-		  aframeEvent: click;
-		  OlEvent: click;
-          pixToVRRatio:250;"
-></a-plane>
+		  <!-- In case we have VR controls -->
+	<a-entity laser-controls="hand: right"></a-entity>
 
-	  <!-- controls -->
-<a-entity laser-controls="hand: right"></a-entity>
-
-<a-camera id="camera" position="0 1.6 0"  look-controls wasd-controls-enabled="true" >
-  <a-text id="infoText" color="grey" value="" position="0 -0.2 -1" scale="0.4 0.4 0.4"></a-text>
-  <a-cursor fuse interval="1000"></a-cursor>
-</a-camera>
-
+	<a-camera id="camera" position="0 1.6 0"  look-controls wasd-controls-enabled="true" >
+	  <a-text id="infoText" color="#636363"  align="center" value="Click on a country." position="0 -0.1 -1.5" scale="0.4 0.4 0.4"></a-text>
+	  <a-plane 
+	  id="infoPlane"  
+	  align="center" 
+	  position="0 -0.5 -2" 
+	  opacity="0"	
+	  height="0.5"
+	  width="0.5" 
+	  ol="  map: map2; 
+	  		  aframeEvent: click;
+			  OlEvent: click;
+		      pixToVRRatio:400;" 
+	  ></a-plane>
+	  <a-cursor fuse interval="1000"></a-cursor>
+	</a-camera>
 </a-scene>
 
 </body>

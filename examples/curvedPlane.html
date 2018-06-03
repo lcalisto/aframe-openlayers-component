@@ -43,44 +43,6 @@
 		        zoom: 0.7
 		    })
 		});
-		//// Create one interaction
-		var select = new ol.interaction.Select({
-		    condition: ol.events.condition.click //Click interaction
-		  });
-		map.addInteraction(select);
-		select.on('select', function(e) {
-			// Zoom map 2 to selected country. Otherwise reset map panel.
-			if(e.selected.length>0){
-				//console.log(e.selected[0].getGeometry().getExtent());
-				map2.getView().fit(e.selected[0].getGeometry().getExtent(),{
-						size:map2.getSize(),
-						constrainResolution:false
-					});
-			}
-			else{
-				
-			}
-		  });
-		
-		/////////////////////// Second map //////////////////////////////////
-
-		var map2 = new ol.Map({
-		    layers: [
-		    	 new ol.layer.Tile({
-		   		  source: new ol.source.OSM()
-		   		})
-		    ],
-		    target: 'map2',
-		    controls: ol.control.defaults({
-		        attributionOptions: {
-		            collapsible: false
-		        }
-		    }),
-		    view: new ol.View({
-		        center: [0, 0],
-		        zoom: 0.7
-		    })
-		});
 	  </script>
 </head>
 
@@ -88,34 +50,25 @@
 <a-scene>
       <a-assets>
       		<div id="map"></div>
-      		<div id="map2"></div>
       </a-assets>
-<a-plane 
-	position="0 2.2 -2" 
-	height="1.5" 
-	width="3" 
-	color="#c4c4c4"
-	ol="  map: map; 
-		  aframeEvent: click;
-		  OlEvent: click;
-          pixToVRRatio:150;"
- ></a-plane>
-
-<a-plane 
-	position="0 1 -1.3" 
-	rotation='-20 0 0'
-	height="1" 
-	width="1" 
-	color="#c4c4c4" 
-	ol="  map: map2; 
-		  aframeEvent: click;
-		  OlEvent: click;
-          pixToVRRatio:250;"
-></a-plane>
-
-	  <!-- controls -->
-<a-entity laser-controls="hand: right"></a-entity>
-
+ 
+		
+		<a-entity 
+		geometry="primitive: sphere; radius: 5; phiStart: 35; phiLength: 110;thetaStart:60; thetaLength: 60"
+		position="0 1.6 0"
+		rotation="0 -180 0"
+		material="side: back; shader: flat; repeat: -1 1;"
+		shadow="recieve: false; cast: true"
+		scale=""
+		visible=""
+		ol=" map: map;
+				height:2; 
+				width:4; 
+				aframeEvent: click;
+		  		OlEvent: click;
+          		pixToVRRatio:150;"
+		></a-entity>
+		
 <a-camera id="camera" position="0 1.6 0"  look-controls wasd-controls-enabled="true" >
   <a-text id="infoText" color="grey" value="" position="0 -0.2 -1" scale="0.4 0.4 0.4"></a-text>
   <a-cursor fuse interval="1000"></a-cursor>
