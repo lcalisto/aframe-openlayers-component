@@ -116,6 +116,8 @@ require('aframe-openlayers-component');
 
 ### Examples
 
+All examples are in [examples/](examples/) folder.
+
 1. [Simple plane and a globe using the same map.](https://lcalisto.github.io/aframe-openlayers-component/examples/simple.html)
 
 2. [Curved plane.](https://lcalisto.github.io/aframe-openlayers-component/examples/curvedPlane.html)
