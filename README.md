@@ -5,11 +5,13 @@ An A-Frame component that alows the use of OpenLayers maps inside A-Frame.
 This component alows the use of any OpenLayers map into any A-Frame object. It uses OpenLayers postcompose map event to export the map into an image (using canvas) and then the image is added into the A-Frame material. Also, it tries to pass OpenLayers interactions into A-frame to allow selection, pan, move etc. inside the VR enviroment.
 
 
-**Simple example:**
+**[Simple example:](https://lcalisto.github.io/aframe-openlayers-component/examples/simple.html)**
 ![Example](docs/simple.png)
 
-**Example with two maps and select interaction:**
+**[Example with two maps and select interaction:](https://lcalisto.github.io/aframe-openlayers-component/examples/select.html)**
 ![Example](docs/select.png)
+
+[More examples ...](#examples)
 
 ### Schema
 
