@@ -24,7 +24,9 @@ This component alows the use of any OpenLayers map into any A-Frame object. It u
 
 ### Info about map
 
-Map size is computed using the folowing formula: MapWidth = (pixToVRRatio * component width) and MapHeight = (pixToVRRatio * component height) The higher `pxToWorldRatio`, the more map area will be displayed per VR unit. The canvas has to be translated into a plane in VR space. This is combined with the width and height in world space (from geometry.width and geometry.height on the entity or in case they are not provided then from the provided width and height in the OL object) to set up the map plane for rendering in 3D.
+Map size is computed using the folowing formula: MapWidth = (pixToVRRatio * component width) and MapHeight = (pixToVRRatio * component height) 
+
+The higher `pxToWorldRatio`, the more map area will be displayed per VR unit. The canvas has to be translated into a plane in VR space. This is combined with the width and height in VR space (from geometry.width and geometry.height on the entity or in case they don't exist then from the provided width and height in the OL object) to set up the map plane for rendering in 3D.
 
 The map is rendered as a texture on a 3D plane. For best performance, texture sizes should be kept to powers of 2, because of that, the component automaticaly resizes geometry.width and/or geometry.height to the closest power of 2 using the provided pixToVRRatio.
 
