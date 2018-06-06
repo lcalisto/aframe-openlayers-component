@@ -34,10 +34,10 @@ The higher `pixToVRRatio`, the more map area will be displayed per VR unit. The 
 
 The map is rendered as a texture on a 3D plane. For best performance, texture sizes should be kept to powers of 2, because of that, the component automatically resizes geometry.width and/or geometry.height to the closest power of 2 using the provided pixToVRRatio. If you don't want the component to automatically resize your objects you should make sure `width * pixToVRRatio` and `height * pixToVRRatio` are powers of 2.
 
-### Installation
+### Installation options:
 
 
-#### npm
+#### 1. npm
 
 Via npm:
 
@@ -53,7 +53,7 @@ require('aframe');
 require('aframe-openlayers-component');
 ```
 
-#### Directly including the [minified file](dist)
+#### 2. Directly including the [minified file](dist)
 
 ```html
 <html>
