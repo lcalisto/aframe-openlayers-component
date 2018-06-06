@@ -9,8 +9,9 @@ This component allows the use of any OpenLayers map into any A-Frame object. It 
 [![Example](docs/3.gif)](https://lcalisto.github.io/aframe-openlayers-component/examples/simple.html)
 
 
-**[Example with two maps and select interaction:](https://lcalisto.github.io/aframe-openlayers-component/examples/select.html)**
-[![Example](docs/select.png)](https://lcalisto.github.io/aframe-openlayers-component/examples/select.html)
+**[Inverted globe example with country selection and minimap.](https://lcalisto.github.io/aframe-openlayers-component/examples/invertedTwoMaps.html)**
+
+[![Example](docs/1.gif)](https://lcalisto.github.io/aframe-openlayers-component/examples/invertedTwoMaps.html)
 
 [More examples ...](#examples)
 
